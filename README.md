@@ -20,7 +20,7 @@ An improved version of RO2016 TopBar like TopBarPlus on Roblox, featuring the ab
 
 ## Installation
 
-[Download KatTopBar.luau](KatTopBar.lua)
+[Download KatTopBar script](KatTopBar.lua)
 
 Place `KatTopBar` inside `ReplicatedStorage`.
 

@@ -264,6 +264,7 @@ local notificationButton = KatTopBar:AddButton({
 
 shopButton.Clicked:Connect(function()
     print("Shop opened")
+    -- gui stuff etc
 end)
 
 musicButton.Clicked:Connect(function(active)

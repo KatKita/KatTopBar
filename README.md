@@ -15,7 +15,7 @@ An improved version of RO2016 TopBar like TopBarPlus on Roblox, featuring the ab
 - Active and inactive icons
 - Notification counters
 - Button ordering and visibility control
-- TopBar transparency control
+- TopBar transparency and color control
 - Automatically restore the TopBar on removal
 
 ## Installation
@@ -244,6 +244,10 @@ notificationButton:EnableCounter(3)
 | `MakeTopBar()` | Create or restore the TopBar Gui |
 | `SetTopbarTransparency(number)` | Set background transparency |
 | `GetTopbarTransparency()` | Get current background transparency |
+| `ResetTopbarTransparency()` | Set background transparency to 0.5 |
+| `SetTopbarColor(Color3)` | Set background color |
+| `GetTopbarColor()` | Get current background color |
+| `ResetTopbarColor()` | Set background background color to 31, 31, 31 RGB |
 | `AddButton(config)` | Create a button |
 
 ### TransparencyChanged
@@ -264,6 +268,45 @@ KatTopBar:SetTopbarTransparency(0.2)
 ### Preview
 <p align="left">
   <img src="GitHub/TopbarTransparency02.png" width="100%">
+</p>
+
+### ColorChanged
+
+Fires when the TopBar color changes.
+
+```lua
+KatTopBar.ColorChanged:Connect(function(color)
+    print("Color:", color)
+end)
+```
+
+Change color:
+
+```lua
+KatTopBar:SetTopbarColor(Color3.fromRGB(100, 0, 0))
+```
+To Red
+### Preview
+<p align="left">
+  <img src="GitHub/TopbarColorRed.png" width="100%">
+</p>
+
+```lua
+KatTopBar:SetTopbarColor(Color3.fromRGB(0, 100, 0))
+```
+To Green
+### Preview
+<p align="left">
+  <img src="GitHub/TopbarColorGreen.png" width="100%">
+</p>
+
+```lua
+KatTopBar:SetTopbarColor(Color3.fromRGB(0, 0, 100))
+```
+To Blue
+### Preview
+<p align="left">
+  <img src="GitHub/TopbarColorBlue.png" width="100%">
 </p>
 
 ## Complete Example

@@ -9,26 +9,36 @@ local KatTopBar = {}
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+if not RunService:IsClient() then
+	warn("KatTopBar must be required from a LocalScript")
+	return false
+end
 
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 
 KatTopBar.Initialized = false
-KatTopBar.Version = 1
+KatTopBar.Version = 1.01
 KatTopBar.TopbarTransparency = 0.5
+KatTopBar.TopBarColor = Color3.fromRGB(31, 31, 31)
 KatTopBar.Gui = nil
 KatTopBar.Buttons = {}
 
--- TODO
 --[[
+  TODO
+  
 * Add text buttons like TopBarPlus
 * Add DropDown like TopBarPlus
 * Fix left offset if the player has the topbar offset enabled, not possible for now dont even try
 ]]
 
 local transparencyChangedEvent = Instance.new("BindableEvent")
-
 KatTopBar.TransparencyChanged = transparencyChangedEvent.Event
+
+local colorChangedEvent = Instance.new("BindableEvent")
+KatTopBar.ColorChanged = colorChangedEvent
 
 local buttonCounter = 0
 local lastCoreAttempt = 0
@@ -38,6 +48,8 @@ local pressedButton = nil
 local rightOffset = 170 -- padding from username and this health bar
 local defaultButtonSize = UDim2.new(0, 50, 0, 36)
 local defaultIconSize = UDim2.new(0, 22, 0, 28)
+
+local transparencyChangedng = false
 
 local function Create(className, properties, parent)
 	local object = Instance.new(className)
@@ -56,6 +68,16 @@ local function HideOriginalTopBar()
 		PlayerGui:SetTopbarTransparency(1)
 	end)
 end
+
+PlayerGui.TopbarTransparencyChangedSignal:Connect(function(newTransparency)
+	if not transparencyChangedng and newTransparency ~= 1 and KatTopBar.Initialized then
+		KatTopBar:SetTopbarTransparency(newTransparency)
+
+		transparencyChangedng = true
+		HideOriginalTopBar()
+		transparencyChangedng = false
+	end
+end)
 
 local function GetFirstButtonPosition()
 	local position = 50
@@ -426,8 +448,8 @@ local function RestoreButton(button)
 
 	if button.CounterEnabled and (
 		not button.Counter
-		or button.Counter.Parent ~= button.IconLabel
-	) then
+			or button.Counter.Parent ~= button.IconLabel
+		) then
 		CreateCounter(button)
 	end
 
@@ -453,7 +475,7 @@ function KatTopBar:MakeTopBar()
 	if not topbar then
 		topbar = Create("Frame", {
 			Name = "TopBar",
-			BackgroundColor3 = Color3.fromRGB(31, 31, 31),
+			BackgroundColor3 = KatTopBar.TopBarColor ,
 			BackgroundTransparency = KatTopBar.TopbarTransparency,
 			BorderSizePixel = 0,
 			Position = UDim2.new(0, 0, 0, -36),
@@ -498,6 +520,40 @@ end
 
 function KatTopBar:GetTopbarTransparency()
 	return KatTopBar.TopbarTransparency
+end
+
+function KatTopBar:ResetTopbarTransparency()
+	KatTopBar:SetTopbarTransparency(0.5)
+end
+
+function KatTopBar:SetTopbarColor(color)
+	if typeof(color) ~= "Color3" then
+		return false, "TopBar Color must be a color3"
+	end
+
+	if KatTopBar.TopBarColor == color then
+		return true
+	end
+
+	KatTopBar.TopBarColor = color
+
+	local topbar = GetTopBar()
+
+	if topbar then
+		topbar.BackgroundColor3 = color
+	end
+
+	colorChangedEvent:Fire(color)
+
+	return true
+end
+
+function KatTopBar:GetTopbarColor()
+	return KatTopBar.TopBarColor
+end
+
+function KatTopBar:ResetTopbarColor()
+	KatTopBar:SetTopbarColor(Color3.fromRGB(31, 31, 31))
 end
 
 function KatTopBar:AddButton(config)
@@ -776,7 +832,7 @@ end
 
 function KatTopBar:Init()
 	if KatTopBar.Initialized then
-    -- warn("KatTopBar is already initialized")
+		warn("KatTopBar is already initialized")
 		return false, "Already initialized"
 	end
 
@@ -810,6 +866,10 @@ function KatTopBar:Init()
 			else
 				if topbar.BackgroundTransparency ~= KatTopBar.TopbarTransparency then
 					topbar.BackgroundTransparency = KatTopBar.TopbarTransparency
+				end
+				
+				if topbar.BackgroundColor3 ~= KatTopBar.TopBarColor then
+					topbar.BackgroundColor3 = KatTopBar.TopBarColor 
 				end
 
 				local expectedPosition = UDim2.new(0, 0, 0, -36)

@@ -1,6 +1,6 @@
 # KatTopBar
 
-An improved version of RO2016 TopBar like TopBarPlus on Roblox, featuring the ability to create custom icons and more 
+An improved version of RO2016 TopBar like TopBarPlus on Roblox, featuring the ability to create custom icons and more
 
 ## Preview
 
@@ -16,7 +16,7 @@ An improved version of RO2016 TopBar like TopBarPlus on Roblox, featuring the ab
 - Notification counters
 - Button ordering and visibility control
 - TopBar transparency control
-- Automatically restore the TopBar on removal 
+- Automatically restore the TopBar on removal
 
 ## Installation
 
@@ -34,6 +34,7 @@ KatTopBar:Init()
 ```
 
 ## Quick Start
+
 Example of a music toggle button
 
 ```lua
@@ -57,6 +58,10 @@ musicButton.Clicked:Connect(function(active, button)
     end
 end)
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/MusicButton.png" width="220">
+</p>
 
 ## AddButton(config)
 
@@ -108,6 +113,10 @@ KatTopBar:AddButton({
     IconSize = UDim2.new(0, 26, 0, 31),
 })
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/ShopButton.png" width="220">
+</p>
 
 To specify a custom position:
 
@@ -189,12 +198,21 @@ local notificationButton = KatTopBar:AddButton({
     CounterValue = 5
 })
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/NotificationButtonCounter5.png" width="220">
+</p>
 
 Update the counter:
 
 ```lua
 notificationButton:SetCounter(10)
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/NotificationButtonCounter10.png" width="220">
+</p>
+
 
 Hide the counter by setting its value to `0`:
 
@@ -202,11 +220,20 @@ Hide the counter by setting its value to `0`:
 notificationButton:SetCounter(0)
 ```
 
+### Preview
+<p align="left">
+  <img src="GitHub/NotificationButtonCounter0.png" width="220">
+</p>
+
 Enable a counter after creating a button:
 
 ```lua
 notificationButton:EnableCounter(3)
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/NotificationButtonCounter3.png" width="220">
+</p>
 
 ## KatTopBar API
 
@@ -234,6 +261,10 @@ Change transparency:
 ```lua
 KatTopBar:SetTopbarTransparency(0.2)
 ```
+### Preview
+<p align="left">
+  <img src="GitHub/TopbarTransparency02.png" width="100%">
+</p>
 
 ## Complete Example
 

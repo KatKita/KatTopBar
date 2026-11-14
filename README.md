@@ -40,16 +40,19 @@ Example of a music toggle button
 local sound = workspace:WaitForChild("Sound")
 
 local musicButton = KatTopBar:AddButton({
-    Name = "MusicToggle",
-    Icon = "rbxassetid://123456789",
-    Type = "right",
+    Name = "Music",
+    Icon = "rbxassetid://7059338404",
+    IconSize = UDim2.new(0, 28, 0, 27),
+    Type = "center",
     Mode = "Toggle"
 })
 
-musicButton.Clicked:Connect(function(active)
+musicButton.Clicked:Connect(function(active, button)
     if active then
         sound:Play() 
+        button:SetIconColor(Color3.fromRGB(3, 162, 245)) -- Blue
     else
+        button:SetIconColor(Color3.fromRGB(255, 255, 255)) -- White
         sound:Stop()
     end
 end)
@@ -101,8 +104,8 @@ Icons are automatically centered when `IconPosition` is not specified.
 ```lua
 KatTopBar:AddButton({
     Name = "Shop",
-    Icon = "rbxassetid://15385835524",
-    IconSize = UDim2.new(0, 28, 0, 27)
+    Icon = "rbxassetid://13429538917",
+    IconSize = UDim2.new(0, 26, 0, 31),
 })
 ```
 
@@ -111,9 +114,9 @@ To specify a custom position:
 ```lua
 KatTopBar:AddButton({
     Name = "Shop",
-    Icon = "rbxassetid://15385835524",
-    IconSize = UDim2.new(0, 28, 0, 27),
-    IconPosition = UDim2.new(1, -28, 0, 0)
+    Icon = "rbxassetid://13429538917",
+    IconSize = UDim2.new(0, 26, 0, 31),
+    IconPosition = UDim2.new(1, -26, 0, 0)
 })
 ```
 
@@ -181,6 +184,7 @@ Enable a counter when creating a button:
 local notificationButton = KatTopBar:AddButton({
     Name = "Notifications",
     Icon = "rbxassetid://70856241901857",
+    IconSize = UDim2.new(0, 28, 0, 27),
     Counter = true,
     CounterValue = 5
 })
@@ -242,14 +246,16 @@ KatTopBar:Init()
 
 local shopButton = KatTopBar:AddButton({
     Name = "Shop",
-    Icon = "rbxassetid://15385835524",
+    Icon = "rbxassetid://13429538917",
+    IconSize = UDim2.new(0, 26, 0, 31),
     Type = "left",
     Mode = "Toggle"
 })
 
 local musicButton = KatTopBar:AddButton({
     Name = "Music",
-    Icon = "rbxassetid://987654321",
+    Icon = "rbxassetid://7059338404",
+    IconSize = UDim2.new(0, 25, 0, 26),
     Type = "center",
     Mode = "Toggle"
 })
@@ -258,25 +264,29 @@ local notificationButton = KatTopBar:AddButton({
     Name = "Notifications",
     Icon = "rbxassetid://70856241901857",
     Type = "right",
+    IconSize = UDim2.new(0, 28, 0, 27),
     Counter = true,
-    CounterValue = 3
+    CounterValue = 41
 })
 
 shopButton.Clicked:Connect(function()
     print("Shop opened")
-    -- gui stuff etc
+    -- other stuff
 end)
 
-musicButton.Clicked:Connect(function(active)
+musicButton.Clicked:Connect(function(active, button)
     if active then
         sound:Play() 
+        button:SetIconColor(Color3.fromRGB(3, 162, 245)) -- Blue
     else
+        button:SetIconColor(Color3.fromRGB(255, 255, 255)) -- White
         sound:Stop()
     end
 end)
 
 notificationButton.Clicked:Connect(function()
     notificationButton:SetCounter(0)
+    -- other stuff
 end)
 ```
 
@@ -285,3 +295,7 @@ end)
 KatTopBar is designed for client side use through a `LocalScript`.
 
 mouse input is handled through `UserInputService` and cursor based hit detection rather than gui button click events cuz the RO2016 TopBar
+
+## Idea
+
+The script is inspired by TopBarPlus on Roblox

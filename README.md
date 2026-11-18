@@ -97,7 +97,7 @@ The `Type` property controls the button group:
 |---|---|
 | `"left"` | Left side, after the system Chat and Backpack offsets |
 | `"center"` | Centered group of buttons |
-| `"right"` | Right side, with a 170 pixel offset from the edge |
+| `"right"` | Right side, with a 170 pixel plus Leaderstats columns offset from the edge |
 
 `Order` controls the order of buttons within their group. Buttons with the same order retain their creation order.
 
@@ -298,7 +298,7 @@ Every text element returned by `AddText()` provides the following methods:
 | `SetVisible(boolean)` | Change visibility |
 | `Destroy()` | Remove the text element |
 
-Text size is fixed to `Enum.FontSize.Size14` for RO2016 compatibility. `TextSize` and a custom font size setting are not supported.
+Text size is fixed to `Enum.FontSize.Size14` for RO2016 Datamodel compatibility. `TextSize` and a custom font size setting are not supported.
 
 ### Text Clicked
 
